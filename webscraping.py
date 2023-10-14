@@ -1,10 +1,11 @@
 import urllib.request
 
 class SECScraper:
-    def __init__(self, CIK, Year, FILE):
+    def __init__(self, CIK, Year, FILE, headers):
         self.CIK = CIK
         self.Year = Year
         self.FILE = FILE
+        self.headers = headers
 
     def scrape_sec_data(self):
         urls = []
@@ -13,8 +14,7 @@ class SECScraper:
             string_match1 = 'edgar/data/'
             for quarter in quarters:
                 url = f'https://www.sec.gov/Archives/edgar/full-index/{self.Year}/{quarter}/master.idx' # Search for master index for each quarter
-                headers = {'User-Agent': 'bxie43@wisc.edu'}
-                req = urllib.request.Request(url, headers=headers)
+                req = urllib.request.Request(url, headers=self.headers)
                 response = urllib.request.urlopen(req)
                 element2, element3, element4 = None, None, None
                 for line in response:
