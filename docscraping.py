@@ -63,17 +63,17 @@ class DocScraper:
         # Get Item 1a
         item_1a_raw = self.document[self.file][pos_dat['start'].loc['item1a']:pos_dat['start'].loc['item1b']]
         item_1a_content = BeautifulSoup(item_1a_raw, 'lxml')
-        item_content['item1a'] = item_1a_content.get_text().replace('\xa0', ' ')
+        item_content['regulatory_compliance'] = item_1a_content.get_text().replace('\xa0', ' ')
 
         # Get Item 7
         item_7_raw = self.document[self.file][pos_dat['start'].loc['item7']:pos_dat['start'].loc['item7a']]
         item_7_content = BeautifulSoup(item_7_raw, 'lxml')
-        item_content['item7'] = item_7_content.get_text().replace('\xa0', ' ')
+        item_content['sales_performance'] = item_7_content.get_text().replace('\xa0', ' ')
 
         # Get Item 7a
         item_7a_raw = self.document[self.file][pos_dat['start'].loc['item7a']:pos_dat['start'].loc['item8']]
         item_7a_content = BeautifulSoup(item_7a_raw, 'lxml')
-        item_content['item7a'] = item_7a_content.get_text().replace('\xa0', ' ')
+        item_content['market_risks'] = item_7a_content.get_text().replace('\xa0', ' ')
         
         return item_content
 
