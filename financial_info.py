@@ -63,10 +63,33 @@ class DocScraper:
         item_7a_raw = document[self.file][pos_dat['start'].loc['item7a']:pos_dat['start'].loc['item8']]
         item_7a_content = BeautifulSoup(item_7a_raw, 'lxml')
         item_content['item7a'] = item_7a_content.get_text().replace('\xa0', ' ')
+        # Get Item 2
+        item_2_raw = document['10-K'][pos_dat['start'].loc['item2']:pos_dat['start'].loc['item7']]
+        item_2_content = BeautifulSoup(item_2_raw, 'lxml')
+        item_content['item2'] = item_2_content.get_text().replace('\xa0', ' ')
+        # Get Item 8
+        item_8_raw = document['10-K'][pos_dat['start'].loc['item8']:pos_dat['start'].loc['item9a']]
+        item_8_content = BeautifulSoup(item_8_raw, 'lxml')
+        item_content['item8'] = item_8_content.get_text().replace('\xa0', ' ')
         
         return item_content
 
+#Get acquisitions and mergers
 
+from bs4 import BeautifulSoup
+# Parse the HTML content
+soup = BeautifulSoup(item_8_raw, 'html.parser')
+
+# Find the "NOTE 3" heading
+note3_heading = soup.find(text="NOTE 3. ACQUISITION AND DIVESTITURES")
+
+if note3_heading:
+    # Get the data below the "NOTE 3" heading
+    note3_data = note3_heading.find_next('div').get_text()
+    print("Data below NOTE 3:")
+    print(note3_data.strip())
+else:
+    print("NOTE 3 heading not found in the content.")
         
 
 
