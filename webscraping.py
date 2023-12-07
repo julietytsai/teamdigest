@@ -25,7 +25,7 @@ class SECScraper:
                             for element3 in element2:
                                 if string_match1 in element3: # Extract the headers for the corresponding document
                                     element4 = element3.strip() # Remove the whitespace
-                                    if element4 and f'edgar/data/{self.CIK}' in element4: # Check if the url has the CIK right after the string_match1
+                                    if element4 and f'edgar/data/{self.CIK}/' in element4: # Check if the url has the CIK right after the string_match1
                                          url3 = 'https://www.sec.gov/Archives/' + element4 # Return the complete url
                                          
                                          urls.append(url3)

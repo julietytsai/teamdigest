@@ -9,8 +9,7 @@ import pandas as pd
 
 pre = ['BYND', 'BG', 'INGR', 'SJM', 'CTVA']
 post = ['ADM', 'CAG','BF-B', 'CPB', 'CL', 'GIS', 'KHC', 'MDLZ', 'PEP', 'STZ']
-irregular = ['BGS']
-no = ['TSN']
+irregular = ['BGS', 'TSN']
 
 
 def text_preprocessing(text):
@@ -26,6 +25,8 @@ def text_preprocessing(text):
     text = re.sub(r'\n\n', '', text)
 
     text = re.sub(r'&#8217;', '', text)
+
+    text = re.sub('\xa0', '', text)
 
     return text
 
@@ -120,6 +121,9 @@ def acquisitions(item8):
 
     text_list = [text_preprocessing(text) for text in text_segments]
     text_list = [text.replace('\n\n', '') for text in text_list]
+
+    if len(text_list) == 0:
+        text_list = [item8]
 
     return text_list
 
